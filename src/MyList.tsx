@@ -13,6 +13,7 @@ class MyList extends Component<Props, State> {
   storeInput = (e: React.FormEvent<HTMLInputElement>) => {
     this.setState({ input: e.currentTarget.value });
   };
+
   addNewItem = (e: React.FormEvent) => {
     e.preventDefault();
     let newList = this.state.listItems;
@@ -22,12 +23,18 @@ class MyList extends Component<Props, State> {
       listItems: newList,
     });
   };
+
+  clearAll = () => {
+    this.setState({ listItems: [], input: '' });
+  };
+
   deleteHander = (item: string) => {
     let newList = this.state.listItems;
     let deleteIndex = newList.indexOf(item);
     newList.splice(deleteIndex, 1);
     this.setState({ listItems: newList });
   };
+
   render() {
     const toDoItems = this.state.listItems.map((item, index) => {
       return (
@@ -48,6 +55,7 @@ class MyList extends Component<Props, State> {
             onChange={this.storeInput}
           />
           <button onClick={this.addNewItem}>Add To Do</button>
+          <button onClick={this.clearAll}>Clear All</button>
         </form>
       </div>
     );
